@@ -9,6 +9,7 @@ namespace MangaBox.Classes
         private string Descricao { get; set; }
         private Genero Genero { get; set; }
         private Demografia Demografia { get; set; }
+        private bool Excluido { get; set; }
 
         public Manga(int id, Genero genero, Demografia demografia, string titulo, string descricao, int ano)
         {
@@ -18,6 +19,7 @@ namespace MangaBox.Classes
             this.Descricao = descricao;
             this.Genero = genero;
             this.Demografia = demografia;
+            this.Excluido = false;
         }
 
         public string ToStrig()
@@ -42,6 +44,11 @@ namespace MangaBox.Classes
         public int RetornaId()
         {
             return this.Id;
+        }
+
+        public void Excluir()
+        {
+            this.Excluido = true;
         }
     }
 }

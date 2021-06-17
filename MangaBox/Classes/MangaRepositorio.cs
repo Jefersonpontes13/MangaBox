@@ -11,7 +11,7 @@ namespace MangaBox.Classes
         
         public List<Manga> Lista()
         {
-            throw new NotImplementedException();
+            return listaManga;
         }
 
         public Manga RetornaPorId(int id)
@@ -21,22 +21,22 @@ namespace MangaBox.Classes
 
         public void Insere(Manga entidade)
         {
-            throw new NotImplementedException();
+            listaManga.Add(entidade);
         }
 
         public void Exclui(int id)
         {
-            throw new NotImplementedException();
+            listaManga[id].Excluir();
         }
 
         public void Atualiza(int id, Manga entidade)
         {
-            throw new NotImplementedException();
+            listaManga[id] = entidade;
         }
 
         public int ProximoId()
         {
-            throw new NotImplementedException();
+            return listaManga.Count;
         }
     }
 }
