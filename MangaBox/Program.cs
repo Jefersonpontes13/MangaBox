@@ -23,13 +23,13 @@ namespace MangaBox
                         InserirManga();
                         break;
                     case "3":
-                       // AtualizarMangas();
+                        AtualizarMangas();
                         break;
                     case "4":
-                       // ExcluirMangas();
+                        ExcluirManga();
                         break;
                     case "5":
-                       // VisualizarrMangas();
+                        VisualizarManga();
                         break;
                     case "C":
                         Console.Clear();
@@ -39,28 +39,29 @@ namespace MangaBox
                 }
             }
         }
-
-        private static void ListarMangas()
+        
+        private static string ObterOpcaoUsuario()
         {
-            Console.WriteLine(" -- Listar Mangás -- ");
-            var lista = repositorio.Lista();
+            Console.WriteLine();
+            Console.WriteLine(" --- Mangá Box --- ");
+            Console.WriteLine("Informe a opção desejada: ");
 
-            if (lista.Count == 0)
-            {
-                Console.WriteLine("Não há Mangás cadastrados !");
-                return;
-            }
+            Console.WriteLine("1 - Listar Mangás");
+            Console.WriteLine("2 - Inserir Novo Mangá");
+            Console.WriteLine("3 - Atualizar Mangá");
+            Console.WriteLine("4 - Excluir Mangá");
+            Console.WriteLine("5 - Visualizar Mangá");
+            Console.WriteLine("C - Limpar Tela");
+            Console.WriteLine("X - Sair");
+            Console.WriteLine();
 
-            foreach (var manga in lista)
-            {
-                Console.WriteLine("#ID {0}: - {1}", manga.RetornaId(), manga.RetornaTitulo());
-            }
+            string opcaoUsuario = Console.ReadLine().ToUpper();
+            Console.WriteLine();
+            return opcaoUsuario;
         }
 
-        private static void InserirManga()
+        private static Manga ObterMangaDoUsuario(int id)
         {
-            
-            Console.WriteLine("-- Inserir novo Mangá --");
             foreach (int genero in System.Enum.GetValues(typeof(Genero)))
             {
                 Console.WriteLine("{0} - {1}", genero, System.Enum.GetName(typeof(Genero), genero));
@@ -88,34 +89,69 @@ namespace MangaBox
             string entradaDescricao = Console.ReadLine();
 
             Manga novoManga = new Manga(
-                id: repositorio.ProximoId(),
+                id: id,
                 titulo: entradaTitulo,
                 ano: entradaAno,
                 descricao: entradaDescricao,                
                 genero: (Genero)entradaGenero,
                 demografia: (Demografia)entradaDemografia
             );
-            repositorio.Insere(novoManga);
+            return novoManga;
         }
 
-        private static string ObterOpcaoUsuario()
+        private static void VisualizarManga()
         {
-            Console.WriteLine();
-            Console.WriteLine(" --- Mangá Box --- ");
-            Console.WriteLine("Informe a opção desejada: ");
+            Console.WriteLine("Digite o Id do Mangá: ");
 
-            Console.WriteLine("1 - Listar Mangás");
-            Console.WriteLine("2 - Inserir Novo Mangá");
-            Console.WriteLine("3 - Excluir Mangá");
-            Console.WriteLine("4 - Excluir Mangá");
-            Console.WriteLine("5 - Visualizar Mangá");
-            Console.WriteLine("C - Limpar Tela");
-            Console.WriteLine("X - Sair");
-            Console.WriteLine();
-
-            string opcaoUsuario = Console.ReadLine().ToUpper();
-            Console.WriteLine();
-            return opcaoUsuario;
+            var manga = repositorio.RetornaPorId(int.Parse(Console.ReadLine()));
+            
+            Console.WriteLine(manga.ToStrig());
+            
         }
+
+        private static void ExcluirManga()
+        {
+            Console.Write("Digite o Id do Mangá: ");
+            repositorio.Exclui(int.Parse(Console.ReadLine()));
+        }
+
+        private static void AtualizarMangas()
+        {
+            Console.WriteLine("Digite o Id do Mangá: ");
+            int indiceManga = int.Parse(Console.ReadLine());
+            
+            repositorio.Atualiza(indiceManga, ObterMangaDoUsuario(indiceManga));
+        }
+        
+        private static void ListarMangas()
+        {
+            Console.WriteLine(" -- Listar Mangás -- ");
+            var lista = repositorio.Lista();
+
+            if (lista.Count == 0)
+            {
+                Console.WriteLine("Não há Mangás cadastrados !");
+                return;
+            }
+
+            foreach (var manga in lista)
+            {
+                var excluido = manga.RetornaExcluido();
+
+                Console.WriteLine("#ID {0}: - {1} - {2}", 
+                    manga.RetornaId(), 
+                    manga.RetornaTitulo(), 
+                    excluido ? "Excluido" : "");
+            }
+        }
+
+        private static void InserirManga()
+        {
+            
+            Console.WriteLine("-- Inserir novo Mangá --");
+            
+            repositorio.Insere(ObterMangaDoUsuario(repositorio.ProximoId()));
+        }
+
     }
 }

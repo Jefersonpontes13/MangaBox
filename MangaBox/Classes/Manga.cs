@@ -31,6 +31,7 @@ namespace MangaBox.Classes
             retorno += "Descrição: " + this.Descricao + Environment.NewLine;
             retorno += "Gênero: " + this.Genero + Environment.NewLine;
             retorno += "Demografia: " + this.Demografia + Environment.NewLine;
+            retorno += "Excluído: " + this.Excluido + Environment.NewLine;
             return retorno;
 
         }
@@ -44,6 +45,11 @@ namespace MangaBox.Classes
         public int RetornaId()
         {
             return this.Id;
+        }
+        
+        public bool RetornaExcluido()
+        {
+            return this.Excluido;
         }
 
         public void Excluir()

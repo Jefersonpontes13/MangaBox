@@ -16,7 +16,7 @@ namespace MangaBox.Classes
 
         public Manga RetornaPorId(int id)
         {
-            throw new NotImplementedException();
+            return listaManga[id];
         }
 
         public void Insere(Manga entidade)
