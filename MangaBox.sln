@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MangaBox", "MangaBox\MangaBox.csproj", "{A41D2EB7-D23D-4CE5-96D6-36166FCF42A3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimeMangaBox", "AnimeMangaBox\AnimeMangaBox.csproj", "{A41D2EB7-D23D-4CE5-96D6-36166FCF42A3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
